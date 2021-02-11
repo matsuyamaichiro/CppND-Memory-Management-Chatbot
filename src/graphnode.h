@@ -5,6 +5,10 @@
 #include <string>
 #include "chatbot.h"
 
+#if 0 //Original
+#else // Task4
+#include <memory>
+#endif
 
 // forward declarations
 class GraphEdge;
@@ -16,11 +20,19 @@ private:
     ////
 
     // data handles (owned)
+#if 0 // Original
     std::vector<GraphEdge *> _childEdges;  // edges to subsequent nodes
+#else // Task4
+    std::vector<std::unique_ptr<GraphEdge>> _childEdges;  // edges to subsequent nodes
+#endif
 
     // data handles (not owned)
     std::vector<GraphEdge *> _parentEdges; // edges to preceding nodes 
+#if 0 // Original
     ChatBot *_chatBot;
+#else // Task5
+    ChatBot _chatBot;
+#endif
 
     ////
     //// EOF STUDENT CODE
@@ -44,12 +56,20 @@ public:
     // proprietary functions
     void AddToken(std::string token); // add answers to list
     void AddEdgeToParentNode(GraphEdge *edge);
+#if 0 // Original
     void AddEdgeToChildNode(GraphEdge *edge);
+#else // Task4
+    void AddEdgeToChildNode(std::unique_ptr<GraphEdge> edge);
+#endif
 
     //// STUDENT CODE
     ////
 
+#if 0 // Original
     void MoveChatbotHere(ChatBot *chatbot);
+#else // Task5
+    void MoveChatbotHere(ChatBot chatbot);
+#endif
 
     ////
     //// EOF STUDENT CODE
